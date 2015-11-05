@@ -29,21 +29,31 @@ import java.util.*;
  * Time: 12:31 PM
  */
 public class DynamicGridView extends GridView {
-    private static final int INVALID_ID = -1;
 
+    private static final int INVALID_ID = -1;
+    /** 动画持续时间 */
     private static final int MOVE_DURATION = 300;
     private static final int SMOOTH_SCROLL_AMOUNT_AT_EDGE = 8;
 
+    /** 拖动 Item 镜像 */
     private BitmapDrawable mHoverCell;
+    /** BitmapDrawable当前边界 */
     private Rect mHoverCellCurrentBounds;
+    /** BitmapDrawable最初边界 */
     private Rect mHoverCellOriginalBounds;
 
+    /** 当前Y边界与最初边界的差值 */
     private int mTotalOffsetY = 0;
+    /** 当前X边界与最初边界的差值 */
     private int mTotalOffsetX = 0;
 
+    /** 手指按下的X方向位置 */
     private int mDownX = -1;
+    /** 手指按下的Y方向位置 */
     private int mDownY = -1;
+    /** 手指最后移动的Y方向位置 */
     private int mLastEventY = -1;
+    /** 手指最后移动的X方向位置 */
     private int mLastEventX = -1;
 
     //used to distinguish straight line and diagonal switching
@@ -56,6 +66,7 @@ public class DynamicGridView extends GridView {
     private boolean mCellIsMobile = false;
     private int mActivePointerId = INVALID_ID;
 
+
     private boolean mIsMobileScrolling;
     private int mSmoothScrollAmountAtEdge = 0;
     private boolean mIsWaitingForScrollFinish = false;
@@ -64,6 +75,7 @@ public class DynamicGridView extends GridView {
     private boolean mIsEditMode = false;
     private List<ObjectAnimator> mWobbleAnimators = new LinkedList<ObjectAnimator>();
     private boolean mHoverAnimation;
+    /** 当数据交换时item的动画 */
     private boolean mReorderAnimation;
     private boolean mWobbleInEditMode = true;
     private boolean mIsEditModeEnabled = true;
@@ -345,10 +357,10 @@ public class DynamicGridView extends GridView {
      */
     private BitmapDrawable getAndAddHoverView(View v) {
 
-        int w = v.getWidth();
-        int h = v.getHeight();
-        int top = v.getTop();
-        int left = v.getLeft();
+        int w = v.getWidth() * 6 / 5;
+        int h = v.getHeight() * 6 / 5;
+        int top = v.getTop() - v.getHeight() / 10;
+        int left = v.getLeft() - v.getWidth() / 10;
 
         Bitmap b = getBitmapFromView(v);
 

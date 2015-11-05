@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
+
 import org.askerov.dynamicgrid.DynamicGridView;
 
 import java.util.ArrayList;
@@ -25,15 +26,17 @@ public class GridActivity extends Activity {
         gridView.setAdapter(new CheeseDynamicAdapter(this,
                 new ArrayList<String>(Arrays.asList(Cheeses.sCheeseStrings)),
                 getResources().getInteger(R.integer.column_count)));
-//        add callback to stop edit mode if needed
-//        gridView.setOnDropListener(new DynamicGridView.OnDropListener()
-//        {
-//            @Override
-//            public void onActionDrop()
-//            {
-//                gridView.stopEditMode();
-//            }
-//        });
+
+        gridView.setWobbleInEditMode(false);
+        gridView.setHorizontalSpacing(100);
+        gridView.setColumnWidth(290);
+//      add callback to stop edit mode if needed
+        gridView.setOnDropListener(new DynamicGridView.OnDropListener() {
+            @Override
+            public void onActionDrop() {
+                gridView.stopEditMode();
+            }
+        });
         gridView.setOnDragListener(new DynamicGridView.OnDragListener() {
             @Override
             public void onDragStarted(int position) {
